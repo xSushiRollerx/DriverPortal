@@ -1,7 +1,21 @@
-<h1 mat-dialog-title>hello</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
+<h1 mat-dialog-title>Order #XXXXXXXXXX</h1>
+<div mat-dialog-content *ngIf ="order; else elseBlock">
+  <p>Pick Up:</p>
+  <p>Restaurant Name</p>
+  <p>Street Address</p>
+  <p>City, State Zipcode</p>
+
+  <p>Drop Off:</p>
+  <p>First Name</p>
+  <p>Street Address</p>
+  <p>City, State Zipcode</p>
+  
+</div>
+
+<div mat-dialog-content #elseBlock>
+  <p>Loading</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onNoClick()">Decline Order</button>
+  <button mat-button (click)="onNoClick()">Accept Order</button>
 </div>

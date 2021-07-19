@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,8 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    MatDialogModule
-
+    MatDialogModule,
+    HttpClientModule,
 
   ],
   providers: [],

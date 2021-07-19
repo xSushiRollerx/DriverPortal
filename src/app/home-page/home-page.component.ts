@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Inject } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderService, Order } from '../order.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,21 +9,31 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+  order: Order | undefined | null;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private orderService: OrderService) { }
 
   ngOnInit(): void {
   }
 
   openDialog(): void {
     console.log("I've been clicked!");
-    const dialogRef = this.dialog.open(RequestForm, {
-      width: '250px',
-    });
+    try {
+      this.orderService.requestOrder().subscribe(
+        (data) => {
+          console.log(data);
+          this.order = data.body;
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("Close Success");
-    });
+
+          const dialogRef = this.dialog.open(RequestForm, { width: '250px' });
+
+          dialogRef.afterClosed().subscribe(result => { console.log("Close Success"); });
+        }
+
+      )
+    } catch (error) {
+      console.log("error");
+    }
   }
 }
 
