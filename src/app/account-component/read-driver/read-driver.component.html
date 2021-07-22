@@ -1,0 +1,9 @@
+<div>
+    <h2>My Driver Status</h2>
+    <p>read-driver works!</p>
+    <h3><span>Name: </span><span>{{ driver?.firstName }}</span></h3>
+    <h3><span>Total Deliveries: </span><span>{{ driver?.rating }}</span></h3>
+    <h3><span>Rating: </span><span>{{ driver?.totalDeliveries }}</span></h3>
+    <h3 ngif="driver?.isActive" style="color: green;">Active</h3>:
+    <ng-template style="color: red;">inactive</ng-template>
+</div>

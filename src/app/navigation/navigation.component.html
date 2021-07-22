@@ -1,0 +1,51 @@
+<!-- https://stackblitz.com/angular/gomakajxprk?file=src%2Fapp%2Fsidenav-overview-example.ts -->
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav  mode="side" class="example-sidenav" [ngStyle]="{ 'width.em': sidenavWidth }" opened="true" (mouseenter)="increase()"
+      (mouseleave)="decrease()">
+      <div class="logomain">SideNav</div>
+      <mat-nav-list>
+        <mat-list-item routerLink="/" routerLinkActive="active" >
+          <mat-icon mat-list-icon>home</mat-icon>
+          <div fxFlex="10"></div>
+          <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+            <h5 class="lead">Home</h5>
+          </div>
+        </mat-list-item>
+        
+        <mat-list-item routerLink="/profile" routerLinkActive="active">
+          <mat-icon mat-list-icon>drive_eta</mat-icon>
+          <div fxFlex="10"></div>
+          <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+            <h5 class="lead">My Driver Status</h5>
+          </div>
+        </mat-list-item>
+  
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <div fxFlex="10"></div>
+          <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+            <h5 class="lead">Account</h5>
+          </div>
+        </mat-list-item>
+  
+        <mat-list-item>
+          <mat-icon mat-list-icon>lock_open</mat-icon>
+          <div fxFlex="10"></div>
+          <div *ngIf="sidenavWidth > 6" class="sidenav-item">
+            <button mat-icon-button (click)="login()">
+            <h5 class="lead">Log In</h5>
+            </button>
+          </div>
+        </mat-list-item>
+  
+      </mat-nav-list>
+  
+    </mat-sidenav>
+  
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+      <mat-icon (click)="sidenav.toggle()" class="sidenav-menu">menu</mat-icon>
+    </div>
+  
+  
+  </mat-sidenav-container>
