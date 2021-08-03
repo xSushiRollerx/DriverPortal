@@ -1,19 +1,15 @@
 <h1 mat-dialog-title>Order #XXXXXXXXXX</h1>
-<div mat-dialog-content *ngIf ="order; else elseBlock">
+<div mat-dialog-content *ngIf ="order">
   <p>Pick Up:</p>
-  <p>Restaurant Name</p>
+  <p>{{order.restaurant.name }}</p>
   <p>Street Address</p>
-  <p>City, State Zipcode</p>
+  <p>{{order.restaurant.city }}, {{order.restaurant.state}} {{order.restaurant.zipCode}}</p>
 
   <p>Drop Off:</p>
   <p>First Name</p>
   <p>Street Address</p>
   <p>City, State Zipcode</p>
   
-</div>
-
-<div mat-dialog-content #elseBlock>
-  <p>Loading</p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Decline Order</button>

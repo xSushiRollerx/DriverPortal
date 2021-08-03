@@ -3,13 +3,13 @@ import { Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderService, Order } from '../order.service';
 
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  order: Order | undefined | null;
 
   constructor(public dialog: MatDialog, private orderService: OrderService) { }
 
@@ -17,23 +17,8 @@ export class HomePageComponent implements OnInit {
   }
 
   openDialog(): void {
-    console.log("I've been clicked!");
-    try {
-      this.orderService.requestOrder().subscribe(
-        (data) => {
-          console.log(data);
-          this.order = data.body;
 
-
-          const dialogRef = this.dialog.open(RequestForm, { width: '250px' });
-
-          dialogRef.afterClosed().subscribe(result => { console.log("Close Success"); });
-        }
-
-      )
-    } catch (error) {
-      console.log("error");
-    }
+    const dialogRef = this.dialog.open(RequestForm, { width: '250px' });
   }
 }
 
@@ -42,16 +27,26 @@ export class HomePageComponent implements OnInit {
   templateUrl: './request-form.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class RequestForm {
+export class RequestForm implements OnInit {
 
+  order: any;
 
-  constructor(public dialogRef: MatDialogRef<RequestForm>) { }
+  constructor(public dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
 
   ngOnInit(): void {
+    this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data;});
   }
 
   onNoClick(): void {
+    console.log(this.order);
+    if (this.order !== null || this.order !== undefined) {
+      this.orderservice.declineOrder(this.order.id).subscribe(() => console.log("declined order"));
+    }
     this.dialogRef.close();
+  }
+
+  onAcceptance(): void {
+    this.orderservice.acceptOrder(this.order.id).subscribe();
   }
 
 }

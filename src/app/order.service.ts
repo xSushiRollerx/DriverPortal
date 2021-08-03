@@ -10,25 +10,23 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angul
 })
 export class OrderService {
   httpHeaders: HttpHeaders = new HttpHeaders({
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OCIsImV4cCI6MTYyNjgwMjY5OCwiaWF0IjoxNjI2NDQyNjk4fQ.bxRSBIO3V6X-a5dbjaH8j4zrW6x_35IbBVzNvyVmJ6E'
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OSIsImV4cCI6MTYyODM3Mjk4OSwiaWF0IjoxNjI4MDEyOTg5fQ.N1xTbQH3teBQgAoA2JFEabK_FohmGneK_aVWYMyBIFY'
   });
 
   URL = "http://localhost:8041/"
 
   constructor(private http: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse) {
-    console.log(error.status);
-    return throwError(
-      error
-    )
+  requestOrder() {
+    return this.http.get(this.URL + "driver/order", { headers: this.httpHeaders, responseType: "json" });
   }
-  
 
-  requestOrder(): Observable<HttpResponse<Order>> {
-    console.log("Im running");
-    return this.http.get<HttpResponse<Order>>(this.URL + "driver/order", { headers: this.httpHeaders, responseType: "json" }).pipe(
-     catchError(this.handleError));
+  declineOrder(orderId: number) {
+    return this.http.put(this.URL + "order/" + orderId, { headers: this.httpHeaders, responseType: "json" });
+  }
+
+  acceptOrder(orderId: number) {
+    return this.http.put(this.URL + "driver/99/order/" + orderId, { headers: this.httpHeaders, responseType: "json" });
   }
 }
 
