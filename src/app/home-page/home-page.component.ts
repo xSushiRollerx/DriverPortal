@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderService, Order } from '../order.service';
 
@@ -27,26 +27,31 @@ export class HomePageComponent implements OnInit {
   templateUrl: './request-form.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class RequestForm implements OnInit {
+export class RequestForm implements OnInit, OnDestroy {
 
   order: any;
+  private subscriptions = new Subscription();
 
   constructor(public dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
 
   ngOnInit(): void {
-    this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data;});
+    this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data;}));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   onNoClick(): void {
     console.log(this.order);
     if (this.order !== null || this.order !== undefined) {
-      this.orderservice.declineOrder(this.order.id).subscribe(() => console.log("declined order"));
+      this.subscriptions.add(this.orderservice.declineOrder(this.order.id).subscribe(() => console.log("declined order")));
     }
     this.dialogRef.close();
   }
 
   onAcceptance(): void {
-    this.orderservice.acceptOrder(this.order.id).subscribe();
+    this.subscriptions.add(this.orderservice.acceptOrder(this.order.id).subscribe());
   }
 
 }
