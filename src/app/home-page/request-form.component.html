@@ -1,9 +1,8 @@
 <div *ngIf ="status">
-  <h1 mat-dialog-title>Order #{{order.id}}</h1>
-
   <div mat-dialog-content>
       <div [ngSwitch]="status"> 
         <div *ngSwitchCase="200">
+          <h1 mat-dialog-title>Order #{{order.id}}</h1>
           <p>Pick Up:</p>
           <p>{{order.restaurant.name }}</p>
           <p>{{order.restaurant.streetAddress}}</p>
@@ -25,6 +24,5 @@
     <button mat-button (click)="onDecline()">Decline Order</button>
     <button mat-button (click)="onAccept()">Accept Order</button>
   </div>
-
 </div>
 
