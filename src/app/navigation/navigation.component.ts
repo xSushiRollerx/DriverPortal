@@ -21,6 +21,10 @@ export class NavigationComponent implements OnInit {
     localStorage.setItem('username','driver1');
   }
 
+  logout() {
+    localStorage.removeItem('username');
+  }
+
   increase() {
     this.sidenavWidth = 20;
   }
