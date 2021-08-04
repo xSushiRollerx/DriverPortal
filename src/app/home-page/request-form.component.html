@@ -1,4 +1,3 @@
-<div *ngIf ="status">
   <div mat-dialog-content>
       <div [ngSwitch]="status"> 
         <div *ngSwitchCase="200">
@@ -11,18 +10,23 @@
           <p>Drop Off:</p>
           <p>{{order.address.street}}</p>
           <p>{{order.address.city }}, {{order.address.state}} {{order.address.zipCode}}</p>
+          <div mat-dialog-actions>
+            <button mat-button (click)="onAccept()">Accept Order</button>
+            <button mat-raised-button (click)="onDecline()">Decline Order</button>
+          </div>
         </div>
         <div *ngSwitchCase="204">
           <p>There are no orders at this time.</p>
+        </div>
+        <div *ngSwitchCase="400">
+          <p>{{order}}</p>
+        </div>
+        <div *ngSwitchCase="0">
+          <p>Loading . . . </p>
         </div>
         <div *ngSwitchDefault>
           <p>Something Went Wrong</p>
         </div>
     </div>
   </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onDecline()">Decline Order</button>
-    <button mat-button (click)="onAccept()">Accept Order</button>
-  </div>
-</div>
 

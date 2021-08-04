@@ -17,7 +17,7 @@ export class HomePageComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(RequestForm, { width: '250px' });
+    const dialogRef = this.dialog.open(RequestForm, { width: '400px' });
   }
 }
 
@@ -29,13 +29,18 @@ export class HomePageComponent implements OnInit {
 export class RequestForm implements OnInit, OnDestroy {
 
   order: any;
-  status: number | undefined;
+  status: number = 0;
   private subscriptions = new Subscription();
 
   constructor(private dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data.body; this.status = data.status; }));
+    this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => {
+       console.log(data); 
+       this.order = data.body; 
+       this.status = data.status; 
+       console.log(this.status);
+      }));
   }
 
   ngOnDestroy() {

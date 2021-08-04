@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent, RequestForm } from './home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from '@angular/common';
+import { MaterialComponentsModule } from './material-components/material-components.module';
+
 
 
 
@@ -22,11 +22,9 @@ import {CommonModule} from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatDialogModule,
     HttpClientModule,
-    CommonModule
-
+    CommonModule,
+    MaterialComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
