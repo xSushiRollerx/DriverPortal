@@ -29,7 +29,7 @@ export class HomePageComponent implements OnInit {
 export class RequestForm implements OnInit, OnDestroy {
 
   order: any;
-  status: number = 0;
+  status: number = -1;
   private subscriptions = new Subscription();
 
   constructor(private dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }

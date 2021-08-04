@@ -22,10 +22,13 @@
           <p>{{order}}</p>
         </div>
         <div *ngSwitchCase="0">
+          <p>Something Went Wrong. Please Reload Your Page And Try Again.</p>
+        </div>
+        <div *ngSwitchCase="-1">
           <p>Loading . . . </p>
         </div>
         <div *ngSwitchDefault>
-          <p>Something Went Wrong</p>
+          <p>Something Went Wrong. {{order}}</p>
         </div>
     </div>
   </div>
