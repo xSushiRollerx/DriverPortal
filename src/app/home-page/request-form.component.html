@@ -1,28 +1,30 @@
-<h1 mat-dialog-title>Order #XXXXXXXXXX</h1>
+<div *ngIf ="status">
+  <h1 mat-dialog-title>Order #{{order.id}}</h1>
 
-<div mat-dialog-content>
-  <div *ngIf ="status">
-    <div [ngSwitch]="status"> 
-      <div *ngSwitchCase="200">
-        <p>Pick Up:</p>
-        <p>{{order.restaurant.name }}</p>
-        <p>{{order.restaurant.streetAddress}}</p>
-        <p>{{order.restaurant.city }}, {{order.restaurant.state}} {{order.restaurant.zipCode}}</p>
-  
-        <p>Drop Off:</p>
-        <p>{{order.address.street}}</p>
-        <p>{{order.address.city }}, {{order.address.state}} {{order.address.zipCode}}</p>
-      </div>
-      <div *ngSwitchCase="204">
-        <p>There are no orders at this time.</p>
-      </div>
-      <div *ngSwitchDefault>
-        <p>Something Went Wrong</p>
-      </div>
+  <div mat-dialog-content>
+      <div [ngSwitch]="status"> 
+        <div *ngSwitchCase="200">
+          <p>Pick Up:</p>
+          <p>{{order.restaurant.name }}</p>
+          <p>{{order.restaurant.streetAddress}}</p>
+          <p>{{order.restaurant.city }}, {{order.restaurant.state}} {{order.restaurant.zipCode}}</p>
+    
+          <p>Drop Off:</p>
+          <p>{{order.address.street}}</p>
+          <p>{{order.address.city }}, {{order.address.state}} {{order.address.zipCode}}</p>
+        </div>
+        <div *ngSwitchCase="204">
+          <p>There are no orders at this time.</p>
+        </div>
+        <div *ngSwitchDefault>
+          <p>Something Went Wrong</p>
+        </div>
     </div>
   </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onDecline()">Decline Order</button>
+    <button mat-button (click)="onAccept()">Accept Order</button>
+  </div>
+
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Decline Order</button>
-  <button mat-button (click)="onNoClick()">Accept Order</button>
-</div>
+

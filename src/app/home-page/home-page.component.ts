@@ -18,7 +18,6 @@ export class HomePageComponent implements OnInit {
   }
 
   openDialog(): void {
-
     const dialogRef = this.dialog.open(RequestForm, { width: '250px' });
   }
 }
@@ -34,7 +33,7 @@ export class RequestForm implements OnInit, OnDestroy {
   status: number | undefined;
   private subscriptions = new Subscription();
 
-  constructor(public dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
+  constructor(private dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
 
   ngOnInit(): void {
     this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data.body; this.status = data.status; }));
@@ -44,7 +43,7 @@ export class RequestForm implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  onNoClick(): void {
+  onDecline(): void {
     console.log(this.order);
     let status;
     
@@ -53,11 +52,15 @@ export class RequestForm implements OnInit, OnDestroy {
     } else {
       this.dialogRef.close();
     }
-    // this.dialogRef.close();
   }
 
-  onAcceptance(): void {
-    this.subscriptions.add(this.orderservice.acceptOrder(this.order.id).subscribe());
+  onAccept(): void {
+    if (this.order !== null || this.order !== undefined) {
+      this.subscriptions.add(this.orderservice.acceptOrder(this.order.id).subscribe(data => console.log("accepted order")));
+    } else {
+      this.dialogRef.close();
+    }
+    
   }
 
 }

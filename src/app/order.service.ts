@@ -26,8 +26,8 @@ export class OrderService {
     return this.http.put<HttpResponse<any>>(this.URL + "order/" + orderId, { headers: this.httpHeaders, responseType: "json",  observe: 'response' });
   }
 
-  acceptOrder(orderId: number) {
-    return this.http.put(this.URL + "driver/99/order/" + orderId, { headers: this.httpHeaders, responseType: "json" });
+  acceptOrder(orderId: number): Observable<HttpResponse<any>> {
+    return this.http.put<HttpResponse<any>>(this.URL + "driver/99/order/" + orderId, { headers: this.httpHeaders, responseType: "json",  observe: 'response'  });
   }
 
   private errorHandler(error: HttpErrorResponse) {
