@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -18,7 +18,7 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   requestOrder() {
-    return this.http.get(this.URL + "driver/order", { headers: this.httpHeaders, responseType: "json" });
+    return this.http.get(this.URL + "driver/order", { headers: this.httpHeaders, responseType: "json", observe: 'response'});
   }
 
   declineOrder(orderId: number) {
@@ -30,6 +30,3 @@ export class OrderService {
   }
 }
 
-export interface Order {
-  name: string;
-}

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OrderService, Order } from '../order.service';
+import { OrderService} from '../order.service';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -30,12 +31,13 @@ export class HomePageComponent implements OnInit {
 export class RequestForm implements OnInit, OnDestroy {
 
   order: any;
+  status: number | undefined;
   private subscriptions = new Subscription();
 
   constructor(public dialogRef: MatDialogRef<RequestForm>, private orderservice: OrderService) { }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data;}));
+    this.subscriptions.add(this.orderservice.requestOrder().subscribe(data => { console.log(data); this.order = data.body; this.status = data.status; }));
   }
 
   ngOnDestroy() {
