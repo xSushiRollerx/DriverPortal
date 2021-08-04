@@ -46,10 +46,14 @@ export class RequestForm implements OnInit, OnDestroy {
 
   onNoClick(): void {
     console.log(this.order);
+    let status;
+    
     if (this.order !== null || this.order !== undefined) {
-      this.subscriptions.add(this.orderservice.declineOrder(this.order.id).subscribe(() => console.log("declined order")));
+      this.subscriptions.add(this.orderservice.declineOrder(this.order.id).subscribe((data) => console.log("declined order")));
+    } else {
+      this.dialogRef.close();
     }
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   onAcceptance(): void {
