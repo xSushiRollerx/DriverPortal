@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderService} from '../order.service';
-import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -49,7 +48,7 @@ export class RequestForm implements OnInit, OnDestroy {
     let status;
     
     if (this.order !== null || this.order !== undefined) {
-      this.subscriptions.add(this.orderservice.declineOrder(this.order.id).subscribe((data) => console.log("declined order")));
+      this.subscriptions.add(this.orderservice.declineOrder(this.order.id).subscribe((data) => this.dialogRef.close()));
     } else {
       this.dialogRef.close();
     }
@@ -57,7 +56,7 @@ export class RequestForm implements OnInit, OnDestroy {
 
   onAccept(): void {
     if (this.order !== null || this.order !== undefined) {
-      this.subscriptions.add(this.orderservice.acceptOrder(this.order.id).subscribe(data => console.log("accepted order")));
+      this.subscriptions.add(this.orderservice.acceptOrder(this.order.id).subscribe(data => this.dialogRef.close()));
     } else {
       this.dialogRef.close();
     }
